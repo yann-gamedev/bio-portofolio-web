@@ -1,21 +1,5 @@
-/**
- * ═══════════════════════════════════════════════
- *  script.js — Portfolio Interactions
- *  Features:
- *    1. Custom aura cursor with hover effects
- *    2. Scroll-triggered fade-in animations
- *    3. Typewriter effect (typing in & out, looping)
- *    4. Mobile navigation toggle
- *    5. Active nav link highlighting on scroll
- *    6. Navbar shrink on scroll
- * ═══════════════════════════════════════════════
- */
-
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* ─────────────────────────────────────────────
-     1. CUSTOM AURA CURSOR
-     ───────────────────────────────────────────── */
   const cursor = document.querySelector('.aura-cursor');
   const cursorTrail = document.querySelector('.aura-cursor-trail');
 
@@ -41,7 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     animateTrail();
 
-    // Hover effects on interactive elements
     const interactables = document.querySelectorAll(
       'a, button, .btn, .project-card, .skill-category, .contact-link'
     );
@@ -57,9 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ─────────────────────────────────────────────
-     2. SCROLL-TRIGGERED FADE-IN ANIMATIONS
-     ───────────────────────────────────────────── */
   const fadeElements = document.querySelectorAll('.fade-in');
 
   const fadeObserver = new IntersectionObserver(
@@ -74,8 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { rootMargin: '0px', threshold: 0.15 }
   );
 
-  fadeElements.forEach((el, index) => {
-    // Apply stagger delay classes for grouped elements
+  fadeElements.forEach((el) => {
     const parent = el.parentElement;
     if (parent) {
       const siblings = parent.querySelectorAll(':scope > .fade-in');
@@ -89,9 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
     fadeObserver.observe(el);
   });
 
-  /* ─────────────────────────────────────────────
-     3. TYPEWRITER EFFECT — TYPE IN & OUT (LOOP)
-     ───────────────────────────────────────────── */
   const typeElement = document.querySelector('.typewriter-text');
   const phrases = [
     'MBTI: INTP',
@@ -111,43 +87,34 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!typeElement) return;
 
     if (isDeleting) {
-      // Deleting characters
       typeElement.textContent = currentPhrase.substring(0, charIndex - 1);
       charIndex--;
     } else {
-      // Typing characters
       typeElement.textContent = currentPhrase.substring(0, charIndex + 1);
       charIndex++;
     }
 
-    // Determine speed
     let speed = isDeleting ? 40 : 80 + Math.random() * 40;
 
-    // Finished typing the phrase
     if (!isDeleting && charIndex === currentPhrase.length) {
-      speed = 2000; // Pause before deleting
+      speed = 2000;
       isDeleting = true;
     }
 
-    // Finished deleting the phrase
     if (isDeleting && charIndex === 0) {
       isDeleting = false;
       phraseIndex = (phraseIndex + 1) % phrases.length;
-      speed = 500; // Brief pause before next phrase
+      speed = 500;
     }
 
     setTimeout(typeLoop, speed);
   }
 
-  // Start typewriter after a short delay
   if (typeElement) {
     typeElement.textContent = '';
     setTimeout(typeLoop, 1200);
   }
 
-  /* ─────────────────────────────────────────────
-     4. MOBILE NAVIGATION TOGGLE
-     ───────────────────────────────────────────── */
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.querySelector('.nav-links');
   const navLinkItems = document.querySelectorAll('.nav-links a');
@@ -163,7 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Close menu when a nav link is clicked
     navLinkItems.forEach((item) => {
       item.addEventListener('click', () => {
         navLinks.classList.remove('active');
@@ -173,19 +139,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ─────────────────────────────────────────────
-     5. ACTIVE NAV LINK HIGHLIGHT ON SCROLL
-     ───────────────────────────────────────────── */
   const sections = document.querySelectorAll('section');
   const navbar = document.getElementById('navbar');
 
   window.addEventListener('scroll', () => {
-    // Navbar shrink
     if (navbar) {
       navbar.classList.toggle('scrolled', window.scrollY > 80);
     }
 
-    // Highlight active section link
     let currentSection = '';
     sections.forEach((section) => {
       const sectionTop = section.offsetTop - 200;
