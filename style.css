@@ -83,6 +83,7 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
+  width: 100%;
 }
 
 .section {
@@ -91,6 +92,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   position: relative;
 }
 
@@ -111,8 +113,6 @@ h1, h2, h3, h4, .logo {
   background-clip: text;
   position: relative;
   display: inline-block;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 .section-title::after {
